@@ -1,87 +1,52 @@
 import java.util.HashMap;
-import java.util.Map;
 
 /**
- * OOPS Banner App - UC8
- * Using Map Collection to store character patterns
+ * OOPSBannerApp UC8
+ * Using HashMap and StringBuilder for efficient banner rendering.
  */
 public class OOPSBannerApp {
-
-    /**
-     * Utility method to create and return character pattern map
-     * @return Map of Character and String[] pattern
-     */
-    public static Map<Character, String[]> buildCharacterPatterns() {
-
-        Map<Character, String[]> patternMap = new HashMap<>();
-
-        patternMap.put('O', new String[]{
-                " ***** ",
-                "*     *",
-                "*     *",
-                "*     *",
-                "*     *",
-                "*     *",
-                " ***** "
-        });
-
-        patternMap.put('P', new String[]{
-                " ***** ",
-                "*     *",
-                "*     *",
-                " ***** ",
-                "*      ",
-                "*      ",
-                "*      "
-        });
-
-        patternMap.put('S', new String[]{
-                " ***** ",
-                "*      ",
-                "*      ",
-                " ***** ",
-                "      *",
-                "      *",
-                " ***** "
-        });
-
-        return patternMap;
+    
+    // Method to initialize the Map with character patterns
+    public static HashMap<Character, String[]> createCharacterMap() {
+        HashMap<Character, String[]> charMap = new HashMap<>();
+        
+        charMap.put('O', new String[]{"  *** ", " ** ** ", " ** ** ", " ** ** ", " ** ** ", " ** ** ", "  *** "});
+        charMap.put('P', new String[]{" ***** ", " ** **", " ** **", " ***** ", " ** ", " ** ", " ** "});
+        charMap.put('S', new String[]{"  **** ", " ** ", " ** ", "  *** ", "     **", "     **", " **** "});
+        
+        return charMap;
     }
 
-    /**
-     * Utility method to print banner word
-     * @param word banner word
-     * @param patternMap map containing patterns
-     */
-    public static void printBanner(String word, Map<Character, String[]> patternMap) {
-
+    // Static method to display the banner using StringBuilder
+    public static void displayBanner(String message, HashMap<Character, String[]> charMap) {
+        // Outer loop for the 7 rows of the banner
         for (int row = 0; row < 7; row++) {
-
-            StringBuilder line = new StringBuilder();
-
-            for (int col = 0; col < word.length(); col++) {
-
-                char ch = word.charAt(col);
-                String[] pattern = patternMap.get(ch);
-
-                if (pattern != null) {
-                    line.append(pattern[row]).append("  ");
+            StringBuilder sb = new StringBuilder();
+            
+            // Inner loop for each character in the message
+            for (char ch : message.toUpperCase().toCharArray()) {
+                if (charMap.containsKey(ch)) {
+                    // Append the current row of the current character
+                    sb.append(charMap.get(ch)[row]).append("  ");
                 }
             }
-
-            System.out.println(line);
+            // Print the assembled row
+            System.out.println(sb.toString());
         }
     }
 
-    /**
-     * Main Method
-     */
     public static void main(String[] args) {
-
-        String word = "OOPS";
-
-        Map<Character, String[]> patternMap = buildCharacterPatterns();
-
-        printBanner(word, patternMap);
+        // 1. Initialize the character map collection
+        HashMap<Character, String[]> charMap = createCharacterMap();
+        
+        // 2. Define the message to display
+        String message = "OOPS";
+        
+        // 3. Render the banner
+        displayBanner(message, charMap);
     }
 }
+             
+
+  
+      
